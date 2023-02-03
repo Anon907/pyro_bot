@@ -3,10 +3,10 @@ from pyanon.database import db_x
 db_y = db_x["PMPERMIT"]
 
 PMPERMIT_MESSAGE = (
-    "**peringatan! tolong baca pesan ini dengan hati-hati..\n\n**"
-    "**Saya Geez-Pyro saya di sini untuk melindungi tuanku dari spam**"
+    "**peringatan!\n\n**"
+    "**Saya Anon-Pyro saya di sini untuk melindungi tuanku dari spam**"
     "**jika Anda bukan spammer, harap tunggu!.\n\n**"
-    "**jangan spam atau Anda akan diblokir, jadi berhati-hatilah untuk mengirim pesan pesan!**"
+    "**jangan spam atau Anda akan diblokir!**"
 )
 
 BLOCKED = "**Spammer, blocked!**"
