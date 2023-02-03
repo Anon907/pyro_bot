@@ -33,24 +33,24 @@ from mimetypes import MimeTypes
 from pathlib import Path
 from typing import Union, List, Optional, Callable, AsyncGenerator
 
-import geezlibs
-from geezlibs import __version__, __license__
-from geezlibs import enums
-from geezlibs import raw
-from geezlibs import utils
-from geezlibs.crypto import aes
-from geezlibs.errors import CDNFileHashMismatch
-from geezlibs.errors import (
+import pyanon
+from pyanon import __version__, __license__
+from pyanon import enums
+from pyanon import raw
+from pyanon import utils
+from pyanon.crypto import aes
+from pyanon.errors import CDNFileHashMismatch
+from pyanon.errors import (
     SessionPasswordNeeded,
     VolumeLocNotFound, ChannelPrivate,
     AuthBytesInvalid, BadRequest, ListenerCanceled
 )
-from geezlibs.handlers.handler import Handler
-from geezlibs.methods import Methods
-from geezlibs.session import Auth, Session
-from geezlibs.storage import FileStorage, MemoryStorage
-from geezlibs.types import User, TermsOfService
-from geezlibs.utils import ainput
+from pyanon.handlers.handler import Handler
+from pyanon.methods import Methods
+from pyanon.session import Auth, Session
+from pyanon.storage import FileStorage, MemoryStorage
+from pyanon.types import User, TermsOfService
+from pyanon.utils import ainput
 from .dispatcher import Dispatcher
 from .file_id import FileId, FileType, ThumbnailSource
 from .mime_types import mime_types
@@ -116,7 +116,7 @@ class Client(Methods):
         in_memory (``bool``, *optional*):
             Pass True to start an in-memory session that will be discarded as soon as the client stops.
             In order to reconnect again using an in-memory session without having to login again, you can use
-            :meth:`~geezlibs.Client.export_session_string` before stopping the client to get a session string you can
+            :meth:`~pyanon.Client.export_session_string` before stopping the client to get a session string you can
             pass to the ``session_string`` parameter.
             Defaults to False.
 
@@ -144,7 +144,7 @@ class Client(Methods):
         plugins (``dict``, *optional*):
             Smart Plugins settings as dict, e.g.: *dict(root="plugins")*.
 
-        parse_mode (:obj:`~geezlibs.enums.ParseMode`, *optional*):
+        parse_mode (:obj:`~pyanon.enums.ParseMode`, *optional*):
             Set the global parse mode of the client. By default, texts are parsed using both Markdown and HTML styles.
             You can combine both syntaxes together.
 
@@ -450,14 +450,14 @@ class Client(Methods):
         global value by default.
 
         Parameters:
-            parse_mode (:obj:`~geezlibs.enums.ParseMode`):
+            parse_mode (:obj:`~pyanon.enums.ParseMode`):
                 By default, texts are parsed using both Markdown and HTML styles.
                 You can combine both syntaxes together.
 
         Example:
             .. code-block:: python
 
-                from geezlibs import enums
+                from pyanon import enums
 
                 # Default combined mode: Markdown + HTML
                 await app.send_message("me", "1. **markdown** and <i>html</i>")
@@ -1011,7 +1011,7 @@ class Client(Methods):
                             break
                 except Exception as e:
                     raise e
-        except geezlibs.StopTransmission:
+        except pyanon.StopTransmission:
             raise
         except Exception as e:
             log.error(e, exc_info=True)
