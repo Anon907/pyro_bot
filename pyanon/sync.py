@@ -21,9 +21,9 @@ import functools
 import inspect
 import threading
 
-from geezlibs import types
-from geezlibs.methods import Methods
-from geezlibs.methods.utilities import idle as idle_module, compose as compose_module
+from pyanon import types
+from pyanon.methods import Methods
+from pyanon.methods.utilities import idle as idle_module, compose as compose_module
 
 
 def async_to_sync(obj, name):
