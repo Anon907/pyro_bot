@@ -21,15 +21,15 @@ import inspect
 import logging
 from collections import OrderedDict
 
-import geezlibs
-from geezlibs import utils
-from geezlibs.handlers import (
+import pyanon
+from pyanon import utils
+from pyanon.handlers import (
     CallbackQueryHandler, MessageHandler, EditedMessageHandler, DeletedMessagesHandler,
     UserStatusHandler, RawUpdateHandler, InlineQueryHandler, PollHandler,
     ChosenInlineResultHandler, ChatMemberUpdatedHandler, ChatJoinRequestHandler,
     ConversationHandler
 )
-from geezlibs.raw.types import (
+from pyanon.raw.types import (
     UpdateNewMessage, UpdateNewChannelMessage, UpdateNewScheduledMessage,
     UpdateEditMessage, UpdateEditChannelMessage,
     UpdateDeleteMessages, UpdateDeleteChannelMessages,
@@ -54,7 +54,7 @@ class Dispatcher:
     CHOSEN_INLINE_RESULT_UPDATES = (UpdateBotInlineSend,)
     CHAT_JOIN_REQUEST_UPDATES = (UpdateBotChatInviteRequester,)
 
-    def __init__(self, client: "geezlibs.Client"):
+    def __init__(self, client: "pyanon.Client"):
         self.client = client
         self.loop = asyncio.get_event_loop()
 
@@ -69,7 +69,7 @@ class Dispatcher:
 
         async def message_parser(update, users, chats):
             return (
-                await geezlibs.types.Message._parse(self.client, update.message, users, chats,
+                await pyanon.types.Message._parse(self.client, update.message, users, chats,
                                                     isinstance(update, UpdateNewScheduledMessage)),
                 MessageHandler
             )
@@ -91,43 +91,43 @@ class Dispatcher:
 
         async def callback_query_parser(update, users, chats):
             return (
-                await geezlibs.types.CallbackQuery._parse(self.client, update, users),
+                await pyanon.types.CallbackQuery._parse(self.client, update, users),
                 CallbackQueryHandler
             )
 
         async def user_status_parser(update, users, chats):
             return (
-                geezlibs.types.User._parse_user_status(self.client, update),
+                pyanon.types.User._parse_user_status(self.client, update),
                 UserStatusHandler
             )
 
         async def inline_query_parser(update, users, chats):
             return (
-                geezlibs.types.InlineQuery._parse(self.client, update, users),
+                pyanon.types.InlineQuery._parse(self.client, update, users),
                 InlineQueryHandler
             )
 
         async def poll_parser(update, users, chats):
             return (
-                geezlibs.types.Poll._parse_update(self.client, update),
+                pyanon.types.Poll._parse_update(self.client, update),
                 PollHandler
             )
 
         async def chosen_inline_result_parser(update, users, chats):
             return (
-                geezlibs.types.ChosenInlineResult._parse(self.client, update, users),
+                pyanon.types.ChosenInlineResult._parse(self.client, update, users),
                 ChosenInlineResultHandler
             )
 
         async def chat_member_updated_parser(update, users, chats):
             return (
-                geezlibs.types.ChatMemberUpdated._parse(self.client, update, users, chats),
+                pyanon.types.ChatMemberUpdated._parse(self.client, update, users, chats),
                 ChatMemberUpdatedHandler
             )
 
         async def chat_join_request_parser(update, users, chats):
             return (
-                geezlibs.types.ChatJoinRequest._parse(self.client, update, users, chats),
+                pyanon.types.ChatJoinRequest._parse(self.client, update, users, chats),
                 ChatJoinRequestHandler
             )
 
@@ -249,15 +249,15 @@ class Dispatcher:
                                         self.client,
                                         *args
                                     )
-                            except geezlibs.StopPropagation:
+                            except pyanon.StopPropagation:
                                 raise
-                            except geezlibs.ContinuePropagation:
+                            except pyanon.ContinuePropagation:
                                 continue
                             except Exception as e:
                                 log.error(e, exc_info=True)
 
                             break
-            except geezlibs.StopPropagation:
+            except pyanon.StopPropagation:
                 pass
             except Exception as e:
                 log.error(e, exc_info=True)
