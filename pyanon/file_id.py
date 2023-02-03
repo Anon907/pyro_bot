@@ -23,7 +23,7 @@ from enum import IntEnum
 from io import BytesIO
 from typing import List
 
-from geezlibs.raw.core import Bytes, String
+from pyanon.raw.core import Bytes, String
 
 log = logging.getLogger(__name__)
 
