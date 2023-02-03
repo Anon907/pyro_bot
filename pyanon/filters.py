@@ -20,13 +20,13 @@ import inspect
 import re
 from typing import Callable, Union, List, Pattern
 
-import geezlibs
-from geezlibs import enums
-from geezlibs.types import Message, CallbackQuery, InlineQuery, InlineKeyboardMarkup, ReplyKeyboardMarkup, Update
+import pyanon
+from pyanon import enums
+from pyanon.types import Message, CallbackQuery, InlineQuery, InlineKeyboardMarkup, ReplyKeyboardMarkup, Update
 
 
 class Filter:
-    async def __call__(self, client: "geezlibs.Client", update: Update):
+    async def __call__(self, client: "pyanon.Client", update: Update):
         raise NotImplementedError
 
     def __invert__(self):
@@ -43,7 +43,7 @@ class InvertFilter(Filter):
     def __init__(self, base):
         self.base = base
 
-    async def __call__(self, client: "geezlibs.Client", update: Update):
+    async def __call__(self, client: "pyanon.Client", update: Update):
         if inspect.iscoroutinefunction(self.base.__call__):
             x = await self.base(client, update)
         else:
@@ -61,7 +61,7 @@ class AndFilter(Filter):
         self.base = base
         self.other = other
 
-    async def __call__(self, client: "geezlibs.Client", update: Update):
+    async def __call__(self, client: "pyanon.Client", update: Update):
         if inspect.iscoroutinefunction(self.base.__call__):
             x = await self.base(client, update)
         else:
@@ -92,7 +92,7 @@ class OrFilter(Filter):
         self.base = base
         self.other = other
 
-    async def __call__(self, client: "geezlibs.Client", update: Update):
+    async def __call__(self, client: "pyanon.Client", update: Update):
         if inspect.iscoroutinefunction(self.base.__call__):
             x = await self.base(client, update)
         else:
@@ -131,9 +131,9 @@ def create(func: Callable, name: str = None, **kwargs) -> Filter:
             A function that accepts three positional arguments *(filter, client, update)* and returns a boolean: True if the
             update should be handled, False otherwise. 
             The *filter* argument refers to the filter itself and can be used to access keyword arguments (read below). 
-            The *client* argument refers to the :obj:`~geezlibs.Client` that received the update.
+            The *client* argument refers to the :obj:`~pyanon.Client` that received the update.
             The *update* argument type will vary depending on which `Handler <handlers>`_ is coming from. 
-            For example, in a :obj:`~geezlibs.handlers.MessageHandler` the *update* argument will be a :obj:`~geezlibs.types.Message`; in a :obj:`~geezlibs.handlers.CallbackQueryHandler` the *update* will be a :obj:`~geezlibs.types.CallbackQuery`.
+            For example, in a :obj:`~pyanon.handlers.MessageHandler` the *update* argument will be a :obj:`~pyanon.types.Message`; in a :obj:`~pyanon.handlers.CallbackQueryHandler` the *update* will be a :obj:`~pyanon.types.CallbackQuery`.
             Your function body can then access the incoming update attributes and decide whether to allow it or not.
 
         name (``str``, *optional*):
@@ -142,7 +142,7 @@ def create(func: Callable, name: str = None, **kwargs) -> Filter:
 
         **kwargs (``any``, *optional*):
             Any keyword argument you would like to pass. Useful when creating parameterized custom filters, such as
-            :meth:`~geezlibs.filters.command` or :meth:`~geezlibs.filters.regex`.
+            :meth:`~pyanon.filters.command` or :meth:`~pyanon.filters.regex`.
     """
     return type(
         name or func.__name__ or CUSTOM_FILTER_NAME,
@@ -257,7 +257,7 @@ async def audio_filter(_, __, m: Message):
 
 
 audio = create(audio_filter)
-"""Filter messages that contain :obj:`~geezlibs.types.Audio` objects."""
+"""Filter messages that contain :obj:`~pyanon.types.Audio` objects."""
 
 
 # endregion
@@ -268,7 +268,7 @@ async def document_filter(_, __, m: Message):
 
 
 document = create(document_filter)
-"""Filter messages that contain :obj:`~geezlibs.types.Document` objects."""
+"""Filter messages that contain :obj:`~pyanon.types.Document` objects."""
 
 
 # endregion
@@ -279,7 +279,7 @@ async def photo_filter(_, __, m: Message):
 
 
 photo = create(photo_filter)
-"""Filter messages that contain :obj:`~geezlibs.types.Photo` objects."""
+"""Filter messages that contain :obj:`~pyanon.types.Photo` objects."""
 
 
 # endregion
@@ -290,7 +290,7 @@ async def sticker_filter(_, __, m: Message):
 
 
 sticker = create(sticker_filter)
-"""Filter messages that contain :obj:`~geezlibs.types.Sticker` objects."""
+"""Filter messages that contain :obj:`~pyanon.types.Sticker` objects."""
 
 
 # endregion
@@ -301,7 +301,7 @@ async def animation_filter(_, __, m: Message):
 
 
 animation = create(animation_filter)
-"""Filter messages that contain :obj:`~geezlibs.types.Animation` objects."""
+"""Filter messages that contain :obj:`~pyanon.types.Animation` objects."""
 
 
 # endregion
@@ -312,7 +312,7 @@ async def game_filter(_, __, m: Message):
 
 
 game = create(game_filter)
-"""Filter messages that contain :obj:`~geezlibs.types.Game` objects."""
+"""Filter messages that contain :obj:`~pyanon.types.Game` objects."""
 
 
 # endregion
@@ -323,7 +323,7 @@ async def video_filter(_, __, m: Message):
 
 
 video = create(video_filter)
-"""Filter messages that contain :obj:`~geezlibs.types.Video` objects."""
+"""Filter messages that contain :obj:`~pyanon.types.Video` objects."""
 
 
 # endregion
@@ -345,7 +345,7 @@ async def voice_filter(_, __, m: Message):
 
 
 voice = create(voice_filter)
-"""Filter messages that contain :obj:`~geezlibs.types.Voice` note objects."""
+"""Filter messages that contain :obj:`~pyanon.types.Voice` note objects."""
 
 
 # endregion
@@ -356,7 +356,7 @@ async def video_note_filter(_, __, m: Message):
 
 
 video_note = create(video_note_filter)
-"""Filter messages that contain :obj:`~geezlibs.types.VideoNote` objects."""
+"""Filter messages that contain :obj:`~pyanon.types.VideoNote` objects."""
 
 
 # endregion
@@ -367,7 +367,7 @@ async def contact_filter(_, __, m: Message):
 
 
 contact = create(contact_filter)
-"""Filter messages that contain :obj:`~geezlibs.types.Contact` objects."""
+"""Filter messages that contain :obj:`~pyanon.types.Contact` objects."""
 
 
 # endregion
@@ -378,7 +378,7 @@ async def location_filter(_, __, m: Message):
 
 
 location = create(location_filter)
-"""Filter messages that contain :obj:`~geezlibs.types.Location` objects."""
+"""Filter messages that contain :obj:`~pyanon.types.Location` objects."""
 
 
 # endregion
@@ -389,7 +389,7 @@ async def venue_filter(_, __, m: Message):
 
 
 venue = create(venue_filter)
-"""Filter messages that contain :obj:`~geezlibs.types.Venue` objects."""
+"""Filter messages that contain :obj:`~pyanon.types.Venue` objects."""
 
 
 # endregion
@@ -411,7 +411,7 @@ async def poll_filter(_, __, m: Message):
 
 
 poll = create(poll_filter)
-"""Filter messages that contain :obj:`~geezlibs.types.Poll` objects."""
+"""Filter messages that contain :obj:`~pyanon.types.Poll` objects."""
 
 
 # endregion
@@ -422,7 +422,7 @@ async def dice_filter(_, __, m: Message):
 
 
 dice = create(dice_filter)
-"""Filter messages that contain :obj:`~geezlibs.types.Dice` objects."""
+"""Filter messages that contain :obj:`~pyanon.types.Dice` objects."""
 
 
 # endregion
@@ -743,7 +743,7 @@ def command(commands: Union[str, List[str]], prefixes: Union[str, List[str]] = "
             The command or list of commands as string the filter should look for.
             Examples: "start", ["start", "help", "settings"]. When a message text containing
             a command arrives, the command itself and its arguments will be stored in the *command*
-            field of the :obj:`~geezlibs.types.Message`.
+            field of the :obj:`~pyanon.types.Message`.
 
         prefixes (``str`` | ``list``, *optional*):
             A prefix or a list of prefixes as string the filter should look for.
@@ -756,7 +756,7 @@ def command(commands: Union[str, List[str]], prefixes: Union[str, List[str]] = "
     """
     command_re = re.compile(r"([\"'])(.*?)(?<!\\)\1|(\S+)")
 
-    async def func(flt, client: geezlibs.Client, message: Message):
+    async def func(flt, client: pyanon.Client, message: Message):
         username = client.me.username or ""
         text = message.text or message.caption
         message.command = None
@@ -814,9 +814,9 @@ def regex(pattern: Union[str, Pattern], flags: int = 0):
 
     Can be applied to handlers that receive one of the following updates:
 
-    - :obj:`~geezlibs.types.Message`: The filter will match ``text`` or ``caption``.
-    - :obj:`~geezlibs.types.CallbackQuery`: The filter will match ``data``.
-    - :obj:`~geezlibs.types.InlineQuery`: The filter will match ``query``.
+    - :obj:`~pyanon.types.Message`: The filter will match ``text`` or ``caption``.
+    - :obj:`~pyanon.types.CallbackQuery`: The filter will match ``data``.
+    - :obj:`~pyanon.types.InlineQuery`: The filter will match ``query``.
 
     When a pattern matches, all the `Match Objects <https://docs.python.org/3/library/re.html#match-objects>`_ are
     stored in the ``matches`` field of the update object itself.
