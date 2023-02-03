@@ -1,2 +1,2 @@
-from geezlibs.geez.utils.tools import *
-from geezlibs.geez.utils.misc import *
+from pyanon.utils.tools import *
+from pyanon.utils.misc import *
