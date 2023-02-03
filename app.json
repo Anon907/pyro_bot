@@ -1,0 +1,83 @@
+{
+    "name": "Anon Pyro Userbot",
+    "description": "UserBot ABAL ABAL !!!.",
+    "logo": "https://telegra.ph//file/ea49ce9a479c88ca1b90d.jpg",
+    "keywords": ["telegram", "userbot", "Anon", "pyrogram"],
+    "repository": "https://github.com/Anon907/pyro_bot",
+    "stack": "container",
+    "env": {
+        "APP_ID": {
+            "description": "Get this value from my.telegram.org! Please do not steal",
+            "value": "",
+            "required": true
+        },
+        "API_HASH": {
+            "description": "Get this value from my.telegram.org! Please do not steal",
+            "value": "",
+            "required": true
+        },
+        "STRING_SESSION1": {
+            "description": "fill with the pyrogram V2 session string from @getstringrobot",
+            "required": true
+        },
+        "MONGO_URL": {
+            "description": "Fill there an mongo database from mongodb.com",
+            "required": true,
+            "value": ""
+        },
+        "SUDO_USERS": {
+            "description": "Sudo User",
+            "required": false,
+            "value": ""
+        },
+        "OPENAI_API": {
+            "description": "Jika ingin menggunakan openai, isi openai-api-key",
+            "required": false,
+            "value": ""
+        },
+        "OWNER_ID": {
+            "description": "Fill there your I'd go to @getmyid_bot pm and press /start",
+            "required": true,
+            "value": "1234567890"
+        },
+        "BOT_TOKEN": {
+            "description": "fill with your bot token get from @BotFather on telegram",
+            "required": true,
+            "value": ""
+        },
+        "BOTLOG_CHATID": {
+            "description": "fill with your Publik LOG Group",
+            "required": false,
+            "value": ""
+        },
+        "CMD_HNDLR": {
+            "description": "Command Handlernya",
+            "required": true,
+            "value": "."
+        },
+        "HEROKU_API_KEY": {
+            "description": "Heroku Api Key",
+            "required": true,
+            "value": "."
+        },
+        "HEROKU_APP_NAME": {
+            "description": "Heroku APP name",
+            "required": true,
+            "value": "."
+        }
+    },
+    "buildpacks": [
+        {
+          "url": "heroku/python"
+        },
+        {
+          "url": "https://github.com/jonathanong/heroku-buildpack-ffmpeg-latest.git"
+        }
+    ],
+    "formation": {
+        "worker": {
+          "quantity": 1,
+          "size": "basic"
+        }
+      }
+  }
