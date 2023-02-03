@@ -27,10 +27,10 @@ from datetime import datetime, timezone
 from getpass import getpass
 from typing import Union, List, Dict, Optional
 
-import geezlibs
-from geezlibs import raw, enums
-from geezlibs import types
-from geezlibs.file_id import FileId, FileType, PHOTO_TYPES, DOCUMENT_TYPES
+import pyanon
+from pyanon import raw, enums
+from pyanon import types
+from pyanon.file_id import FileId, FileType, PHOTO_TYPES, DOCUMENT_TYPES
 
 
 async def ainput(prompt: str = "", *, hide: bool = False):
@@ -339,7 +339,7 @@ def compute_password_check(
 
 
 async def parse_text_entities(
-    client: "geezlibs.Client",
+    client: "pyanon.Client",
     text: str,
     parse_mode: enums.ParseMode,
     entities: List["types.MessageEntity"]
