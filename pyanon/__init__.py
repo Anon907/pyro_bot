@@ -27,15 +27,14 @@ BL_GCAST = [-1001692751821, -1001473548283, -1001459812644, -1001433238829, -100
 BL_Anon = [1245451624]
 DEVS = [1995473195, 1924219811, 1914436153]
 
-add_command_help = add_command_help
 SUPPORT = "https://t.me/de_xrobotsupport"
 
 
 async def join(client):
     try:
-        await client.join_chat("UserbotCh")
-        await client.join_chat("GeezRam")
-        await client.join_chat("GeezSupport")
+        await client.join_chat("heinoob")
+        await client.join_chat("store_ign")
+        await client.join_chat("banned_33")
     except BaseException:
         pass
 
